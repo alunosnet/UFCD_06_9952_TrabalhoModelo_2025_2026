@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<form action="/login" method="POST">
+    <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email">
+    </div>
+    <div>
+        <label for="ppasse">Palavra Passe:</label>
+        <input type="password" id="ppasse" name="ppasse">
+    </div>
+    <input type="submit" value="Iniciar Sessão">
+    <input type="button" value="Recuperar palavra passe">
+    {{ mensagem }}
+</form>
+
+{% endblock %}

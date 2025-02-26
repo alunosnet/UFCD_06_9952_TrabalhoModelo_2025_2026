@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/js/bootstrap.bundle.min.js" ></script>
+    <link href="/static/css/estilos.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">ESEN</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <!-------------------Dropdown Alunos------------------------------>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Alunos</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/aluno/adicionar">Adicionar</a></li>
+                  <li><a class="dropdown-item" href="/aluno/listar">Listar</a></li>
+                  <li><a class="dropdown-item" href="/aluno/pesquisar">Pesquisar</a></li>
+                </ul>
+              </li>
+              <!--------------------------------------------------->
+              <!-------------------Dropdown Disciplinas------------------------------>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Disciplinas</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/disciplina/adicionar">Adicionar</a></li>
+                  <li><a class="dropdown-item" href="/disciplina/listar">Listar</a></li>
+                </ul>
+              </li>
+              <!--------------------------------------------------->
+              <!-------------------Dropdown Notas------------------------------>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Notas</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/nota/adicionar">Adicionar</a></li>
+                  <li><a class="dropdown-item" href="/nota/listar">Listar</a></li>
+                </ul>
+              </li>
+              <!--------------------------------------------------->
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/sobre">Sobre</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <!--Páginas-->
+    <div class="container">
+        {% block body %}
+        {% endblock %}
+    </div>
+    <!--Rodapé-->
+    {% if not request.cookies.get("aviso") %}
+    <form method="post" action="/aceitar_cookies">
+      <footer>Este site utiliza cookies</footer>
+      <input type="submit" value="Aceitar" class="btn btn-primary" />
+    </form>
+    {% endif %}
+</body>
+</html>

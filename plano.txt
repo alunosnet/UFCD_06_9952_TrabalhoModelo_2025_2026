@@ -1,0 +1,28 @@
+Trabalho modelo
+---------------------
+VetOnline - clinica veterinária
+------------------------------
+Publica
+--------
+- HomePage (localização, contactos, dados estatisticos - especialidades, médicos,preço das consultas)
+- Registar (clientes)
+- Login
+
+Cliente
+---------
+- Solicitar uma consulta (terá ser confirmada)
+- Registar os seus pets - uma foto (animais)
+- Consultar histórico de consultas
+
+Backoffice (privado - admin)
+-------------------------------
+- CRUD todas as tabelas
+- Ver as marcações de consultas (confirmar ou cancelar)
+- Listar as consultas do dia
+- Dashboard 
+
+Modelo de dados
+-----------------
+Utilizadores(email<PK>,passe,perfil [cliente,admin,bloqueado],nome,morada,cp,telefone,token_recuperacao,data_recuperacao)
+Animais(id<pk>,nome, especie,raca,ano_nascimento,genero,peso,altura,chip,data_vacina,email<FK>)
+Consultas(nr_consulta<pk>,email<FK>,id<FK>,data_marcacao,data_consulta,hora_consulta,estado [solicitada,confirmada,cancelada,realizada],medico,razao,resumo)

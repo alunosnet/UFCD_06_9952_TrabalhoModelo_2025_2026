@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block body %}
+<script src="https://www.google.com/recaptcha/api.js" async defer ></script>
+<h1>Registo de utilizador</h1>
+<form action="/registar" method="POST">
+    <div>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" required placeholder="Nome de utilizador">
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+    </div>
+    <div>
+        <label for="ppasse">Palavra passe:</label>
+        <input type="password" name="ppasse" id="ppasse" required>
+    </div>
+    <br>
+    <div class="g-recaptcha" data-sitekey="{{ site_key }}"></div>
+    <input type="submit" value="Registar">
+    <br>
+    {{ mensagem }}
+</form>
+
+{% endblock %}
