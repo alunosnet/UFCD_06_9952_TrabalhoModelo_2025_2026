@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, session, redirect
 import utilizadores
 """
 Rotas para funcionalidades sem autenticação
@@ -21,4 +21,11 @@ def configurar(app,mail):
     def login():
         return utilizadores.login()
     #logout
+    @app.route('/logout')
+    def logout():
+        session.clear()
+        return redirect("/")
     #recuperar password
+    @app.route("/recuperar_password",methods=["GET","POST"])
+    def recuperarpassword():
+        return utilizadores.recuperarpassword(mail)

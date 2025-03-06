@@ -1,6 +1,17 @@
 {% extends "layout.html" %}
 {% block body %}
-
+<script>
+    function RecuperarPassword()
+    {
+        let email = document.getElementById("email").value;
+        if (email=="")
+        {
+            alert("Tem de indicar um email!");
+            return;
+        }
+        window.location.href = "/recuperar_password?email="+email;
+    }
+</script>
 <form action="/login" method="POST">
     <div>
         <label for="email">Email</label>
@@ -11,7 +22,7 @@
         <input type="password" id="ppasse" name="ppasse">
     </div>
     <input type="submit" value="Iniciar Sessão">
-    <input type="button" value="Recuperar palavra passe">
+    <input type="button" value="Recuperar palavra passe" onclick="RecuperarPassword();">
     {{ mensagem }}
 </form>
 

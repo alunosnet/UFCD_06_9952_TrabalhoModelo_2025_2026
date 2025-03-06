@@ -1,6 +1,9 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, session
+from flask_session import Session
 import basedados
+import random 
 import requests, bcrypt
+from flask_mail import Mail, Message
 """
 Módulos utilizadores
 """
@@ -61,6 +64,40 @@ def login():
             if dados[0]['perfil']=="bloqueado":
                 return render_template("Utilizadores/login.html",mensagem="A sua conta de utilizador está bloqueada.")
             #iniciar sessão (email, perfil, nome)
-            #TODO: Continuar aqui!!!!!!!!!!!!!!!!!!!!!!!
+            session['email']=email
+            session['perfil']=dados[0]['perfil']
+            print(session['perfil'])
+            session["nome"]=dados[0]['nome']
+            if session['perfil'] == 'admin':
+                return redirect("/aadmin")
+            return redirect("/acliente")
         else:
             return render_template("Utilizadores/login.html",mensagem="O login falhou. Tente novamente.")
+
+def recuperarpassword(mail):
+    #1º passo (não existe o token)
+    token = request.args.get("token",None)
+    if token is None and request.method=="GET":
+        #gerar o token
+        email=request.args.get("email")
+        token = GerarToken(email)
+        #enviar email
+        assunto="Recuperação de palavra passe"
+        texto=f"""
+            Clique no link para definir uma palavra passe nova <a href='http://127.0.0.1:5000/recuperar_password?token={token}'>Clique aqui</a><br>Se não foi solicitada nenhuma recuperação da palavra passe ignore este email.<br>Vetonline
+        """
+        mensagem = Message(assunto,sender="alunosnet@gmail.com",recipients=[email])
+        mensagem.body = texto
+        mensagem.html = texto
+        mail.send(mensagem)
+        #mostrar mensagem ao utilizador
+        return render_template("Utilizadores/login.html",mensagem="Foi enviado um email para recuperação da sua palavra passe")
+    #2º passo
+
+def GerarToken(email):
+    token = random.randint(100000,999999)   #UUID
+    ligacao_bd = basedados.criar_conexao("vetonline.bd")
+    sql="UPDATE Utilizadores SET token_recuperacao=? WHERE email=?"
+    parametros=(token,email)
+    basedados.executar_sql(ligacao_bd,sql,parametros)
+    return str(token)

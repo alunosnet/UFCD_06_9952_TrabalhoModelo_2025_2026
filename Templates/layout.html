@@ -21,34 +21,49 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
-              <!-------------------Dropdown Alunos------------------------------>
+              <!------------------Sem login------------------------------>
+              {% if 'email' not in session %}
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/registar">Registar</a>
+              </li>
+              {% else %}
+              <!------------Com login-------------------------------------->
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/logout">Terminar sessão</a>
+              </li>
+              <!--------------------------------------------------->
+              <!-------------------Dropdown Animais------------------------------>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Alunos</a>
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Animais</a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/aluno/adicionar">Adicionar</a></li>
-                  <li><a class="dropdown-item" href="/aluno/listar">Listar</a></li>
-                  <li><a class="dropdown-item" href="/aluno/pesquisar">Pesquisar</a></li>
+                  <li><a class="dropdown-item" href="/animal/adicionar">Adicionar</a></li>
+                  <li><a class="dropdown-item" href="/animal/listar">Listar</a></li>
                 </ul>
               </li>
               <!--------------------------------------------------->
-              <!-------------------Dropdown Disciplinas------------------------------>
+              <!-------------------Dropdown Consultas------------------------------>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Disciplinas</a>
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Consultas</a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/disciplina/adicionar">Adicionar</a></li>
-                  <li><a class="dropdown-item" href="/disciplina/listar">Listar</a></li>
+                  <li><a class="dropdown-item" href="/consulta/adicionar">Adicionar</a></li>
+                  <li><a class="dropdown-item" href="/consulta/listar">Listar</a></li>
                 </ul>
               </li>
               <!--------------------------------------------------->
-              <!-------------------Dropdown Notas------------------------------>
+              <!--Admin-->
+              {% if 'perfil' in session and session['perfil']=='admin' %}
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Notas</a>
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Utilizadores</a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/nota/adicionar">Adicionar</a></li>
-                  <li><a class="dropdown-item" href="/nota/listar">Listar</a></li>
+                  <li><a class="dropdown-item" href="/utilizador/adicionar">Adicionar</a></li>
+                  <li><a class="dropdown-item" href="/utilizador/listar">Listar</a></li>
                 </ul>
               </li>
-              <!--------------------------------------------------->
+              {% endif %} <!--perfil--->
+              {% endif %}
               <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="/sobre">Sobre</a>
               </li>
