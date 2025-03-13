@@ -101,3 +101,34 @@ def GerarToken(email):
     parametros=(token,email)
     basedados.executar_sql(ligacao_bd,sql,parametros)
     return str(token)
+
+def Adicionar():
+    if request.method=="GET":
+        return render_template("Utilizadores/adicionar.html")
+    if request.method=="POST":
+        
+        #ligação bd
+        ligacao_bd=basedados.criar_conexao("vetonline.bd")
+        #validação dos dados
+        nome = request.form.get("nome")
+        email = request.form.get("email")
+        ppasse=request.form.get("ppasse")
+        perfil = request.form.get("perfil")
+        morada = request.form.get("morada")
+        cp = request.form.get("cp")
+        telefone = request.form.get("telefone")
+        #inserir na bd
+        ppasse = ppasse.encode('utf-8')
+        sal = bcrypt.gensalt()
+        ppasse_hash = bcrypt.hashpw(ppasse,sal)
+        sql="INSERT INTO Utilizadores(nome,email,passe,perfil,morada,cp,telefone) VALUES (?,?,?,?,?,?,?)"
+        parametros=(nome,email,ppasse_hash,perfil,morada,cp,telefone)
+        basedados.executar_sql(ligacao_bd,sql,parametros)
+        #redirecionar para /listar
+        return redirect("/utilizador/listar")
+
+def Listar():
+    ligacao_bd=basedados.criar_conexao("vetonline.bd")
+    sql="SELECT * FROM Utilizadores ORDER BY nome"
+    dados = basedados.consultar_sql(ligacao_bd,sql)
+    return render_template("Utilizadores/listar.html",dados=dados)

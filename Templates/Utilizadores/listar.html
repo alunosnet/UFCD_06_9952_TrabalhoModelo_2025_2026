@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+
+<h1>Lista de utilizadores</h1>
+<table class="table display" id="tabela_animais">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Morada</th>
+            <th>CP</th>
+            <th>Telefone</th>
+            <th>Perfil</th>
+            <th>Bloquear</th>
+            <th>Editar</th>
+            <th>Apagar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for registo in dados %}
+        <tr>
+            <td>{{ registo['nome'] }}</td>
+            <td>{{ registo['email'] }}</td>
+            <td>{{ registo['morada'] }}</td>
+            <td>{{ registo['cp'] }}</td>
+            <td>{{ registo['telefone'] }}</td>
+            <td>{{ registo['perfil'] }}</td>
+            <td><a href="#">Bloquear...</a></td>
+            <td> Editar</td>
+            <td> Apagar</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    window.onload=function(){
+        
+        new DataTable("#tabela_animais",{
+            searching: true,
+            paging: true,
+            pageLength:10,
+            // language:{
+            //     url:"//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese.json"
+            // }
+        });
+    }
+</script>
+{% endblock %}

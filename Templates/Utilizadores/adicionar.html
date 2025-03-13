@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h1>Registo de utilizador</h1>
+<form action="/utilizador/adicionar" method="POST">
+    <div>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" required placeholder="Nome de utilizador">
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+    </div>
+    <div>
+        <label for="ppasse">Palavra passe:</label>
+        <input type="password" name="ppasse" id="ppasse" required>
+    </div>
+    <div>
+        <label for="perfil">Perfil:</label>
+        <select name="perfil" id="perfil">
+            <option value="cliente">Cliente</option>
+            <option value="admin">Administrador</option>
+        </select>
+    </div>
+    <div>
+        <label for="morada">Morada:</label>
+        <input type="text" name="morada" id="morada" required>
+    </div>
+    <div>
+        <label for="cp">Código Postal:</label>
+        <input type="text" name="cp" id="cp" required>
+    </div>
+    <div>
+        <label for="telefone">Telefone:</label>
+        <input type="text" name="telefone" id="telefone" required>
+    </div>
+
+    <input type="submit" id="bt1" name="bt1" value="Guardar">
+    <br>
+    {{ mensagem }}
+</form>
+
+{% endblock %}

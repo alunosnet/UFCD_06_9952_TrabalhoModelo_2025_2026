@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h1>Detalhes de animal</h1>
+    <div>
+        <label for="nome">Nome:</label>
+        <input readonly type="text" name="nome" id="nome" value="{{ dados['nome'] }}" >
+    </div>
+    <div>
+        <label for="especie">Espécie:</label>
+        <input readonly type="text" name="especie" id="especie" value ="{{ dados['especie']}}" >
+    </div>
+    <div>
+        <label for="raca">Raça:</label>
+        <input readonly type="text" name="raca" id="raca" value="{{ dados['raca'] }}" >
+    </div>
+    <div>
+        <label for="ano">Ano de nascimento:</label>
+        <input readonly type="number" name="ano" id="ano" value="{{ dados['ano_nascimento'] }}" >
+    </div>
+    <div>
+        <label for="genero">Género:</label>
+        <input readonly type="text" value="{{ dados['genero'] }}">
+    </div>
+    <div>
+        <label for="peso">Peso:</label>
+        <input readonly type="number" name="peso" id="peso" value="{{ dados['peso'] }}" >
+    </div>
+    <div>
+        <label for="altura">Altura:</label>
+        <input readonly type="number" name="altura" id="altura" value="{{ dados['altura'] }}">
+    </div>
+    <div>
+        <label for="chip">Código Chip:</label>
+        <input readonly type="text" name="chip" id="chip" value="{{ dados['chip']}}" >
+    </div>
+    <div>
+        <label for="data_vacina">Data da próxima vacina:</label>
+        <input readonly type="text" name="data_vacina" id="data_vacina" value="{{ dados['data_vacina'] }}">
+    </div>
+    <div>
+        <img width="400" src="/static/imagens/{{ dados['id'] }}.jpg" >
+    </div>
+    <a href="/animal/listar">Voltar</a>
+{% endblock %}

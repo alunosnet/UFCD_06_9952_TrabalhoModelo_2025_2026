@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h1>Registo de animal</h1>
+<form action="/animal/adicionar" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" placeholder="Nome do animal" required >
+    </div>
+    <div>
+        <label for="especie">Espécie:</label>
+        <input type="text" name="especie" id="especie" placeholder="Espécie do animal" required >
+    </div>
+    <div>
+        <label for="raca">Raça:</label>
+        <input type="text" name="raca" id="raca" placeholder="Raça do animal" required >
+    </div>
+    <div>
+        <label for="ano">Ano de nascimento:</label>
+        <input type="number" name="ano" id="ano" required >
+    </div>
+    <div>
+        <label for="genero">Género:</label>
+        <select id="genero" name="genero">
+            <option value="M">M</option>
+            <option value="F">F</option>
+            <option value="O">Outro...</option>
+        </select>
+    </div>
+    <div>
+        <label for="peso">Peso:</label>
+        <input type="number" name="peso" id="peso" value="0" required >
+    </div>
+    <div>
+        <label for="altura">Altura:</label>
+        <input type="number" name="altura" id="altura" value="0" placeholder="Altura do animal">
+    </div>
+    <div>
+        <label for="chip">Código Chip:</label>
+        <input type="text" name="chip" id="chip" placeholder="Código do chip" >
+    </div>
+    <div>
+        <label for="data_vacina">Data da próxima vacina:</label>
+        <input type="date" name="data_vacina" id="data_vacina" >
+    </div>
+    {% if 'perfil' in session and session['perfil']=='admin' %}
+    <div>
+        <label for="dono">Dono:</label>
+        <select name="dono" id="dono">
+            <option value="-1">Escolha um</option>
+            {% for utilizador in utilizadores %}
+            <option value="{{ utilizador['email']}}">{{ utilizador['nome'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endif %}
+    <input type="file" id="fotografia" name="fotografia">
+    <br>
+    <input type="submit" value="Guardar">
+    <br>
+    {{ mensagem }}
+</form>
+
+{% endblock %}
