@@ -29,7 +29,10 @@
             <td>{{ registo['cp'] }}</td>
             <td>{{ registo['telefone'] }}</td>
             <td>{{ registo['perfil'] }}</td>
-            <td><a href="#">Bloquear...</a></td>
+            <td><form method="POST" action="/utilizador/bloquear">
+                <input type="hidden" name="email" value="{{ registo['email'] }}"/>
+                <input type="submit" value="Bloquear">
+            </form></td>
             <td> Editar</td>
             <td> Apagar</td>
         </tr>

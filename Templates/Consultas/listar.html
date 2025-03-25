@@ -1,9 +1,6 @@
-{% extends 'layout.html' %}
+{% extends "layout.html" %}
 {% block body %}
 
-<h1>Área de administrador</h1>
-
-<!--Lista das consultas do dia-->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
 <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
@@ -20,6 +17,11 @@
             <th>Médico</th>
             <th>Razão</th>
             <th>Estado</th>
+            <th>Resumo</th>
+            {% if "perfil" in session and session["perfil"]=="admin" %}
+                <th>Alterar Estado</th>
+                <th>Resumo</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -33,6 +35,19 @@
             <td>{{ registo['medico'] }}</td>
             <td>{{ registo['razao'] }}</td>
             <td>{{ registo['estado'] }}</td>
+            <td>{{ registo['resumo'] }}</td>
+            {% if "perfil" in session and session["perfil"]=="admin" %}
+            <td><form method="POST" action="/consulta/estado">
+                <input type="hidden" name="nr_consulta" value="{{ registo['nr_consulta'] }}"/>
+                <input type="submit" value="Estado Consulta">
+                </form>
+            </td>
+            <td><form method="POST" action="/consulta/resumo">
+                <input type="hidden" name="nr_consulta" value="{{ registo['nr_consulta'] }}"/>
+                <input type="submit" value="Resumo">
+                </form>
+            </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>
@@ -50,6 +65,4 @@
         });
     }
 </script>
-<!--Consultas por confirmar-->
-
 {% endblock %}

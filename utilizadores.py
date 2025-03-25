@@ -132,3 +132,33 @@ def Listar():
     sql="SELECT * FROM Utilizadores ORDER BY nome"
     dados = basedados.consultar_sql(ligacao_bd,sql)
     return render_template("Utilizadores/listar.html",dados=dados)
+
+def Bloquear():
+    """Mudar o perfil de utilizador para bloqueado ou para cliente ou para admin"""
+    ligacao_bd=basedados.criar_conexao("vetonline.bd")
+    email = request.form.get("email")
+    sql = "SELECT perfil FROM Utilizadores WHERE email=?"
+    parametros=(email,)
+    estado_atual = basedados.consultar_sql(ligacao_bd,sql,parametros)
+    if estado_atual[0][0]=="bloqueado":
+        estado = "cliente"
+    if estado_atual[0][0]=="cliente":
+        estado = "admin"
+    if estado_atual[0][0]=="admin":
+        estado = "bloqueado"
+    sql = "UPDATE Utilizadores SET perfil=? where email=?"
+    parametros=(estado,email)
+    basedados.executar_sql(ligacao_bd,sql,parametros)
+    return redirect("/utilizador/listar")
+
+def SessaoIniciada():
+    """Devolve True se o utilizador tem sessão iniciada"""
+    if "email" in session:
+        return True
+    return False
+
+def Utilizador_Admin():
+    """Devolve True se o utilizador tem a sessão iniciada com ADMINISTRADOR"""
+    if SessaoIniciada()==True and session["perfil"]=="admin":
+        return True
+    return False

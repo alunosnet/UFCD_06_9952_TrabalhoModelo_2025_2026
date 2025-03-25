@@ -24,7 +24,6 @@ def executar_sql(conexao, comando_sql, parametros=None):
         return cursor.lastrowid
     except sqlite3.Error as e:
         print(f"Erro ao executar o comando SQL: {e}")
-        cursor.close()
         conexao.close()
 
 def consultar_sql(conexao,sql,parametros=None):
@@ -39,6 +38,5 @@ def consultar_sql(conexao,sql,parametros=None):
         return resultados
     except sqlite3.Error as e:
         print(f"Erro ao executar a consulta SQL: {e}")
-        cursor.close()
         conexao.close()
         return None

@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h1>Marcação de consulta</h1>
+<form action="/consulta/adicionar" method="POST">
+    {% if "perfil" in session and session["perfil"]=="admin" %}
+    <label for="email">Cliente:</label>
+    <select id="email" name="email">
+        {% for utilizador in utilizadores %}
+        <option value="{{utilizador['email']}}">{{utilizador['nome']}}</option>
+        {% endfor %}
+    </select>
+    {% endif %}
+    <br>
+    <label for="id">Animal:</label>
+    <select id="id" name="id">
+        {% for animal in animais %}
+        <option value="{{animal['id']}}">{{ animal['nome'] }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label for="data_consulta">Data Consulta:</label>
+    <input type="date" id="data_consulta" name="data_consulta" >
+    <br>
+    <label for="hora_consulta">Hora da consulta:</label>
+    <input type="time" id="hora_consulta" name="hora_consulta">
+    <br>
+    <label for="medico">Médico:</label>
+    <input type="text" id="medico" name="medico">
+    <br>
+    <label for="razao">Razão para a consulta:</label>
+    <input type="text" id="razao" name="razao">
+    <br>
+    <input type="submit" value="Guardar">
+    <br>
+    {{ mensagem }}
+</form>
+{% endblock %}

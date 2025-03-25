@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h1>Resumo da consulta</h1>
+<form action="/consulta/resumo_preenchido" method="POST">
+    <input type="hidden" id="nr_consulta" name="nr_consulta" value="{{ nr_consulta }}">
+    <label for="resumo">Resumo da consulta:</label>
+    <input type="text" id="resumo" name="resumo">
+    <br>
+    <input type="submit" value="Guardar">
+    <br>
+    {{ mensagem }}
+</form>
+{% endblock %}

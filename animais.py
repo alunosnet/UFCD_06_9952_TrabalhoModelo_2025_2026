@@ -58,7 +58,17 @@ def Listar(app):
 #recebe o id do animal e mostra todos os campos numa página
 def Detalhes(id):
     ligacao_bd=basedados.criar_conexao("vetonline.bd")
-    sql = "SELECT * FROM Animais WHERE id=?"
-    parametros=(id,)
+    #Se não é admin só pode ver o animal se for o dono
+    if session["perfil"] != "admin":
+        email = session["email"]
+        sql = "SELECT * FROM Animais WHERE id=? and email=?"
+        parametros=(id,email,)
+    else:
+        #se é admin pode ver todos os animais
+        sql = "SELECT * FROM Animais WHERE id=?"
+        parametros=(id,)
+
     dados = basedados.consultar_sql(ligacao_bd,sql,parametros)
-    return render_template("animais/detalhes.html",dados=dados[0])
+    if dados != None and len(dados)>0:
+        return render_template("animais/detalhes.html",dados=dados[0])
+    return redirect("/animal/listar")
